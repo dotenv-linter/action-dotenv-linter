@@ -1,10 +1,10 @@
 # GitHub Action: Run dotenv-linter with reviewdog 🐶
 
-![](https://github.com/mgrachev/action-dotenv-linter/workflows/CI/badge.svg)
-![](https://img.shields.io/github/license/mgrachev/action-dotenv-linter)
-![](https://img.shields.io/github/v/release/mgrachev/action-dotenv-linter)
+![](https://github.com/dotenv-linter/action-dotenv-linter/workflows/CI/badge.svg)
+![](https://img.shields.io/github/license/dotenv-linter/action-dotenv-linter)
+![](https://img.shields.io/github/v/release/dotenv-linter/action-dotenv-linter)
 
-This action runs [dotenv-linter](https://github.com/mgrachev/dotenv-linter) with
+This action runs [dotenv-linter](https://github.com/dotenv-linter/dotenv-linter) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to lint `.env` files.
 
 ## Examples
@@ -59,7 +59,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
       - name: dotenv-linter
-        uses: mgrachev/action-dotenv-linter@v1
+        uses: dotenv-linter/action-dotenv-linter@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
