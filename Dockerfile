@@ -1,7 +1,7 @@
 FROM alpine:3.11
 
 ENV DOTENV_LINTER_VERSION v1.2.0
-ENV REVIEWDOG_VERSION v0.9.17
+ENV REVIEWDOG_VERSION v0.10.0
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --no-cache git
