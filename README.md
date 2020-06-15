@@ -80,6 +80,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
+          dotenv_linter_flags: --skip UnorderedKey
 ```
 
 ## Sponsor
