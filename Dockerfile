@@ -1,6 +1,6 @@
 FROM alpine:3.11
 
-ENV DOTENV_LINTER_VERSION v2.2.1
+ENV DOTENV_LINTER_VERSION v3.0.0
 ENV REVIEWDOG_VERSION v0.11.0
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
