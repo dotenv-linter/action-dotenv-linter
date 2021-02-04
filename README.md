@@ -16,13 +16,13 @@ This action runs [dotenv-linter](https://github.com/dotenv-linter/dotenv-linter)
 
 By default, with `reporter: github-pr-check` an annotation is added to the line:
 
-![Example comment made by the action, with github-pr-check](examples/example-github-pr-check.png)
+![Example comment made by the action, with github-pr-check](examples/example-github-pr-check-upd.png)
 
 ### With `github-pr-review`
 
 With `reporter: github-pr-review` a comment is added to the Pull Request Conversation:
 
-![Example comment made by the action, with github-pr-review](examples/example-github-pr-review.png)
+![Example comment made by the action, with github-pr-review](examples/example-github-pr-review-upd.png)
 
 ## Inputs
 
