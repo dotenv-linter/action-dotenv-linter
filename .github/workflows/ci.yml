@@ -1,9 +1,54 @@
 name: CI
-on: [push]
+on: [pull_request]
 jobs:
-  build:
+  dotenv-linter:
+    name: runner / dotenv-linter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag reviewdog-dotenv-linter:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: dotenv-linter
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          dotenv_linter_flags: "./test/data -s SpaceCharacter DuplicatedKey"
+
+  dotenv-linter-platform:
+    name: runner / dotenv-linter-platform
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: dotenv-linter (platform)
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          tool_name: dotenv-linter-${{ matrix.platform }}
+          dotenv_linter_flags: "./test/data -s LeadingCharacter DuplicatedKey"
+
+  dotenv-linter-github-pr-review:
+    name: runner / dotenv-linter (github-pr-review)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: dotenv-linter w/ github-pr-review
+        uses: ./
+        with:
+          reporter: github-pr-review
+          tool_name: dotenv-linter-github-pr-review
+          github_token: ${{ secrets.github_token }}
+          dotenv_linter_flags: ./test/data
+
+  dotenv-linter-github-check:
+    name: runner / dotenv-linter (github-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: dotenv-linter w/ github-check
+        uses: ./
+        with:
+          reporter: github-check
+          tool_name: dotenv-linter-github-check
+          github_token: ${{ secrets.github_token }}
+          dotenv_linter_flags: "./test/data -s SpaceCharacter DuplicatedKey"

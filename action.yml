@@ -3,7 +3,7 @@ description: '🐶 Run dotenv-linter with reviewdog on pull requests to improve 
 author: 'mgrachev (reviewdog)'
 inputs:
   github_token:
-    description: 'GITHUB_TOKEN.'
+    description: 'GITHUB_TOKEN'
     required: true
   dotenv_linter_flags:
     description: 'dotenv-linter flags. (dotenv-linter <dotenv_linter_flags>)'
@@ -11,9 +11,6 @@ inputs:
   tool_name:
     description: 'Tool name to use for reviewdog reporter'
     default: 'dotenv-linter'
-  level:
-    description: 'Report level for reviewdog [info,warning,error]'
-    default: 'error'
   reporter:
     description: |
       Reporter of reviewdog command [github-pr-check,github-pr-review].
@@ -33,17 +30,22 @@ inputs:
     description: 'Additional reviewdog flags'
     default: ''
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.github_token }}
-    - ${{ inputs.dotenv_linter_flags }}
-    - ${{ inputs.tool_name }}
-    - ${{ inputs.level }}
-    - ${{ inputs.reporter }}
-    - ${{ inputs.filter_mode }}
-    - ${{ inputs.fail_on_error }}
-    - ${{ inputs.reviewdog_flags }}
+  using: 'composite'
+  steps:
+    - run: $GITHUB_ACTION_PATH/script.sh
+      shell: sh
+      env:
+        REVIEWDOG_VERSION: v0.11.0
+        DOTENV_LINTER_VERSION: v3.0.0
+        # INPUT_<VARIABLE_NAME> is not available in Composite run steps
+        # https://github.community/t/input-variable-name-is-not-available-in-composite-run-steps/127611
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_DOTENV_LINTER_FLAGS: ${{ inputs.dotenv_linter_flags }}
+        INPUT_TOOL_NAME: ${{ inputs.tool_name }}
+        INPUT_REPORTER: ${{ inputs.reporter }}
+        INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
+        INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
+        INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
 branding:
   icon: 'check-circle'
   color: 'green'
