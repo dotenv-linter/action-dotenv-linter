@@ -13,7 +13,7 @@ inputs:
     default: 'dotenv-linter'
   reporter:
     description: |
-      Reporter of reviewdog command [github-pr-check,github-pr-review].
+      Reporter of reviewdog command [github-pr-check,github-pr-review,github-code-suggestions].
       Default is github-pr-check.
     default: 'github-pr-check'
   filter_mode:

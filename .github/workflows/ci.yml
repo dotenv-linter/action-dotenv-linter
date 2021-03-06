@@ -27,7 +27,21 @@ jobs:
           tool_name: dotenv-linter-${{ matrix.platform }}
           dotenv_linter_flags: "./test/data -s LeadingCharacter DuplicatedKey"
 
+  dotenv-linter-github-pr-check:
+    name: runner / dotenv-linter (github-pr-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: dotenv-linter w/ github-pr-check
+        uses: ./
+        with:
+          reporter: github-pr-check
+          tool_name: dotenv-linter-github-pr-check
+          github_token: ${{ secrets.github_token }}
+          dotenv_linter_flags: "./test/data -s SpaceCharacter DuplicatedKey"
+
   dotenv-linter-github-pr-review:
+    if: github.event_name == 'pull_request'
     name: runner / dotenv-linter (github-pr-review)
     runs-on: ubuntu-latest
     steps:
@@ -40,15 +54,16 @@ jobs:
           github_token: ${{ secrets.github_token }}
           dotenv_linter_flags: ./test/data
 
-  dotenv-linter-github-check:
-    name: runner / dotenv-linter (github-check)
+  dotenv-linter-github-code-suggestions:
+    if: github.event_name == 'pull_request'
+    name: runner / dotenv-linter (github-code-suggestions)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: dotenv-linter w/ github-check
+      - name: dotenv-linter w/ github-code-suggestions
         uses: ./
         with:
-          reporter: github-check
-          tool_name: dotenv-linter-github-check
+          reporter: github-code-suggestions
+          tool_name: dotenv-linter-github-code-suggestions
           github_token: ${{ secrets.github_token }}
-          dotenv_linter_flags: "./test/data -s SpaceCharacter DuplicatedKey"
+          dotenv_linter_flags: "./test/data -s UnorderedKey"
