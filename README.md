@@ -39,11 +39,6 @@ Optional. `dotenv-linter` flags. (`dotenv-linter <dotenv_linter_flags>`)
 Optional. Tool name to use for reviewdog reporter. Useful when running multiple
 actions with different config.
 
-### `level`
-
-Optional. Report level for reviewdog [`info`, `warning`, `error`].
-It's same as `-level` flag of reviewdog.
-
 ### `reporter`
 
 Optional. Reporter of reviewdog command [`github-pr-check`, `github-pr-review`].
@@ -66,7 +61,7 @@ Optional. Additional reviewdog flags.
 ## Example usage
 
 ```yml
-name: reviewdog
+name: dotenv
 on: [pull_request]
 jobs:
   dotenv-linter:
@@ -74,8 +69,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v1
-      - name: dotenv-linter
+        uses: actions/checkout@v2
+      - name: Run dotenv-linter
         uses: dotenv-linter/action-dotenv-linter@v2
         with:
           github_token: ${{ secrets.github_token }}
