@@ -16,13 +16,19 @@ This action runs [dotenv-linter](https://github.com/dotenv-linter/dotenv-linter)
 
 By default, with `reporter: github-pr-check` an annotation is added to the line:
 
-![Example comment made by the action, with github-pr-check](examples/example-github-pr-check-upd.png)
+![Example comment made by the action, with github-pr-check](examples/example-github-pr-check.png)
 
 ### With `github-pr-review`
 
 With `reporter: github-pr-review` a comment is added to the Pull Request Conversation:
 
-![Example comment made by the action, with github-pr-review](examples/example-github-pr-review-upd.png)
+![Example comment made by the action, with github-pr-review](examples/example-github-pr-review.png)
+
+### With `github-code-suggestions`
+
+With `reporter: github-code-suggestions` a code suggestion is added to the Pull Request Conversation:
+
+![Example comment made by the action, with github-code-suggestions](examples/example-github-code-suggestions.png)
 
 ## Inputs
 
@@ -41,7 +47,7 @@ actions with different config.
 
 ### `reporter`
 
-Optional. Reporter of reviewdog command [`github-pr-check`, `github-pr-review`].
+Optional. Reporter of reviewdog command [`github-pr-check`, `github-pr-review`, `github-code-suggestions`].
 The default is `github-pr-check`.
 
 ### `filter_mode`
@@ -58,7 +64,7 @@ Default is `false`.
 
 Optional. Additional reviewdog flags.
 
-## Example usage
+## Simple check example
 
 ```yml
 name: dotenv
@@ -68,8 +74,7 @@ jobs:
     name: runner / dotenv-linter
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Run dotenv-linter
         uses: dotenv-linter/action-dotenv-linter@v2
         with:
@@ -78,12 +83,30 @@ jobs:
           dotenv_linter_flags: --skip UnorderedKey
 ```
 
+## Code suggestions example
+
+```yml
+name: dotenv
+on: [pull_request]
+jobs:
+  dotenv-linter:
+    name: runner / dotenv-linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run dotenv-linter with code suggestions
+        uses: dotenv-linter/action-dotenv-linter@v2
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-code-suggestions
+```
+
 ## Sponsor
 
 <p>
   <a href="https://evrone.com/?utm_source=action-dotenv-linter">
-    <img src="https://www.mgrachev.com/assets/static/evrone-sponsored-300.png" 
-      alt="Sponsored by Evrone" width="210">
+    <img src="https://www.mgrachev.com/assets/static/sponsored_by_evrone.svg?sanitize=true" 
+      alt="Sponsored by Evrone">
   </a>
 </p>
 
