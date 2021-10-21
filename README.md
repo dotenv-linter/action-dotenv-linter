@@ -34,7 +34,7 @@ With `reporter: github-code-suggestions` a code suggestion is added to the Pull 
 
 ### `github_token`
 
-**Required**. Must be in form of `github_token: ${{ secrets.github_token }}`.
+`GITHUB_TOKEN`. Default is `${{ github.token }}`.
 
 ### `dotenv_linter_flags`
 
@@ -78,7 +78,6 @@ jobs:
       - name: Run dotenv-linter
         uses: dotenv-linter/action-dotenv-linter@v2
         with:
-          github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
           dotenv_linter_flags: --skip UnorderedKey
 ```
@@ -97,7 +96,6 @@ jobs:
       - name: Run dotenv-linter with code suggestions
         uses: dotenv-linter/action-dotenv-linter@v2
         with:
-          github_token: ${{ secrets.github_token }}
           reporter: github-code-suggestions
 ```
 

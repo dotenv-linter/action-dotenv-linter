@@ -4,7 +4,7 @@ author: 'mgrachev (reviewdog)'
 inputs:
   github_token:
     description: 'GITHUB_TOKEN'
-    required: true
+    default: ${{ github.token }}
   dotenv_linter_flags:
     description: 'dotenv-linter flags. (dotenv-linter <dotenv_linter_flags>)'
     default: ''
