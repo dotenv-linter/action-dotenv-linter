@@ -4,12 +4,13 @@ on:
     - cron:  '14 14 * * *' # Runs at 14:14 UTC every day
   repository_dispatch:
     types: [depup]
+  workflow_dispatch:
 
 jobs:
   reviewdog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: haya14busa/action-depup@v1
         id: depup
         with:
@@ -18,9 +19,8 @@ jobs:
           repo: reviewdog/reviewdog
 
       - name: Create Pull Request to update reviewdog
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           title: "chore(deps): update reviewdog to ${{ steps.depup.outputs.latest }}"
           commit-message: "chore(deps): update reviewdog to ${{ steps.depup.outputs.latest }}"
           body: |
@@ -35,7 +35,7 @@ jobs:
   dotenv-linter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: haya14busa/action-depup@v1
         id: depup
         with:
@@ -44,9 +44,8 @@ jobs:
           repo: dotenv-linter/dotenv-linter
 
       - name: Create Pull Request to update dotenv-linter
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           title: "chore(deps): update dotenv-linter to ${{ steps.depup.outputs.latest }}"
           commit-message: "chore(deps): update dotenv-linter to ${{ steps.depup.outputs.latest }}"
           body: |
