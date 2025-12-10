@@ -19,7 +19,7 @@ jobs:
           repo: reviewdog/reviewdog
 
       - name: Create Pull Request to update reviewdog
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           title: "chore(deps): update reviewdog to ${{ steps.depup.outputs.latest }}"
           commit-message: "chore(deps): update reviewdog to ${{ steps.depup.outputs.latest }}"
@@ -44,7 +44,7 @@ jobs:
           repo: dotenv-linter/dotenv-linter
 
       - name: Create Pull Request to update dotenv-linter
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           title: "chore(deps): update dotenv-linter to ${{ steps.depup.outputs.latest }}"
           commit-message: "chore(deps): update dotenv-linter to ${{ steps.depup.outputs.latest }}"
