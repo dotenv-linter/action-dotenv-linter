@@ -23,7 +23,7 @@ if [ "${INPUT_REPORTER}" = "github-code-suggestions" ]
 then
       echo '::group::Running ⚡️ dotenv-linter with code suggestions 🐶 ...'
       # shellcheck disable=SC2086
-      dotenv-linter fix --no-color ${INPUT_DOTENV_LINTER_FLAGS}
+      dotenv-linter fix --plain ${INPUT_DOTENV_LINTER_FLAGS} .
 
       TMPFILE=$(mktemp)
       git diff > "${TMPFILE}"
@@ -37,17 +37,17 @@ then
         -f.diff.strip=1 \
         -reporter="github-pr-review" \
         -filter-mode="${INPUT_FILTER_MODE}" \
-        -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
+        -fail-level="${INPUT_FAIL_LEVEL}" \
         ${INPUT_REVIEWDOG_FLAGS} < "${TMPFILE}"
 else
       echo '::group::Running ⚡️ dotenv-linter with reviewdog 🐶 ...'
       # shellcheck disable=SC2086
-      dotenv-linter --quiet --no-color ${INPUT_DOTENV_LINTER_FLAGS} \
+      dotenv-linter check --quiet --plain ${INPUT_DOTENV_LINTER_FLAGS} . \
         | reviewdog -f=dotenv-linter \
           -name="${INPUT_TOOL_NAME}" \
           -reporter="${INPUT_REPORTER}" \
           -filter-mode="${INPUT_FILTER_MODE}" \
-          -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
+          -fail-level="${INPUT_FAIL_LEVEL}" \
           ${INPUT_REVIEWDOG_FLAGS}
 fi
 

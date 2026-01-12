@@ -55,10 +55,15 @@ The default is `github-pr-check`.
 Optional. Filtering mode for the reviewdog command [`added`, `diff_context`, `file`, `nofilter`].
 Default is `added`.
 
+### `fail_level`
+
+Optional. If set to `none`, always use exit code 0 for reviewdog. Otherwise, exit code 1 for reviewdog if it finds at least 1 issue with severity greater than or equal to the given level.
+Possible values: [`none`, `any`, `info`, `warning`, `error`]
+Default is `none`.
+
 ### `fail_on_error`
 
-Optional.  Exit code for reviewdog when errors are found [`true`, `false`]
-Default is `false`.
+Deprecated, use `fail_level` instead.
 
 ### `reviewdog_flags`
 
@@ -74,12 +79,12 @@ jobs:
     name: runner / dotenv-linter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Run dotenv-linter
-        uses: dotenv-linter/action-dotenv-linter@v2
+        uses: dotenv-linter/action-dotenv-linter@v3
         with:
           reporter: github-pr-review # Default is github-pr-check
-          dotenv_linter_flags: --skip UnorderedKey
+          dotenv_linter_flags: --ignore-checks UnorderedKey
 ```
 
 ## Code suggestions example
@@ -92,9 +97,9 @@ jobs:
     name: runner / dotenv-linter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Run dotenv-linter with code suggestions
-        uses: dotenv-linter/action-dotenv-linter@v2
+        uses: dotenv-linter/action-dotenv-linter@v3
         with:
           reporter: github-code-suggestions
 ```
