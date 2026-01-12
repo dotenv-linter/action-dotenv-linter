@@ -5,7 +5,7 @@ jobs:
     name: runner / dotenv-linter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: dotenv-linter
         uses: ./
         with:
@@ -19,7 +19,7 @@ jobs:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: dotenv-linter (platform)
         uses: ./
         with:
@@ -31,7 +31,7 @@ jobs:
     name: runner / dotenv-linter (github-pr-check)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: dotenv-linter w/ github-pr-check
         uses: ./
         with:
@@ -45,7 +45,7 @@ jobs:
     name: runner / dotenv-linter (github-pr-review)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: dotenv-linter w/ github-pr-review
         uses: ./
         with:
@@ -59,7 +59,7 @@ jobs:
     name: runner / dotenv-linter (github-code-suggestions)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: dotenv-linter w/ github-code-suggestions
         uses: ./
         with:
