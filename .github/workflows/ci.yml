@@ -10,7 +10,7 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          dotenv_linter_flags: "./test/data -s SpaceCharacter DuplicatedKey"
+          dotenv_linter_flags: "./test/data -i SpaceCharacter,DuplicatedKey"
 
   dotenv-linter-platform:
     name: runner / dotenv-linter-platform
@@ -25,7 +25,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           tool_name: dotenv-linter-${{ matrix.platform }}
-          dotenv_linter_flags: "./test/data -s LeadingCharacter DuplicatedKey"
+          dotenv_linter_flags: "./test/data -i LeadingCharacter,DuplicatedKey"
 
   dotenv-linter-github-pr-check:
     name: runner / dotenv-linter (github-pr-check)
@@ -38,7 +38,7 @@ jobs:
           reporter: github-pr-check
           tool_name: dotenv-linter-github-pr-check
           github_token: ${{ secrets.github_token }}
-          dotenv_linter_flags: "./test/data -s SpaceCharacter DuplicatedKey"
+          dotenv_linter_flags: "./test/data -i SpaceCharacter,DuplicatedKey"
 
   dotenv-linter-github-pr-review:
     if: github.event_name == 'pull_request'
@@ -66,4 +66,4 @@ jobs:
           reporter: github-code-suggestions
           tool_name: dotenv-linter-github-code-suggestions
           github_token: ${{ secrets.github_token }}
-          dotenv_linter_flags: "./test/data -s UnorderedKey"
+          dotenv_linter_flags: "./test/data -i UnorderedKey"
